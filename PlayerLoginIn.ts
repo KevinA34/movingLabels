@@ -1,6 +1,18 @@
 # movingLabels
 循环移动,xxx进入了游戏，假的玩家登录信息
 
+        private nameLabel0:eui.Label;
+        private nameLabel1:eui.Label;
+        private nameLabel2:eui.Label;
+        private nameLabel3:eui.Label;
+        private nameLabel4:eui.Label;
+        private nameLabel5:eui.Label;
+        private nameIndex:number = 0;
+        //定时器
+        this.loadPlayerTimer = new egret.Timer(1000);
+        this.loadPlayerTimer.addEventListener(egret.TimerEvent.TIMER,this.wanJiaDengLu,this);
+        this.loadPlayerTimer.start();
+        
         /**
          *假的 玩家登录信息显示
          */ 
@@ -12,7 +24,7 @@
                 //
                 if (count >= 1) {
                     if (this.createBtn.touchEnabled == false) {
-                        //
+                        //延迟加载。节约前期加载的时间
                         LoadManager.instance.addWait("guide");
                         LoadManager.instance.addWait("fight");//mark stepcare
                         //
@@ -20,6 +32,7 @@
                     this.createBtn.touchEnabled = true;
                     //
                     if (count == 1) {
+                        //弹出的广告界面。另一个界面了
                         Message.instance.send(MsgCMD.MODULE_SHOW,WindowName.ADIMGCONTROLER);
                     }
                     //
@@ -37,7 +50,7 @@
                 //
                 if (!this.roleNames || this.roleNames.length <= 0)
                     return;
-                /**随机 时间5-10秒进入游戏*/
+                /**随机 时间5-10秒进入游戏*/ //随机数的写法左闭右开
                 var _time = Math.floor(Math.random() * 11 + 5);
                 if(_time > 10){
                     return;
